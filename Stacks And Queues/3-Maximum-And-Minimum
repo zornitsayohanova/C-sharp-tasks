@@ -1,0 +1,83 @@
+using System;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Collections.Generic;
+using System.Collections;
+namespace ConsoleApp7
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+
+            var stack = new Stack<int>();
+
+            int inputLines = int.Parse(Console.ReadLine());
+
+            int max = 0, min = 0;
+            while (inputLines != 0)
+            {
+                inputLines--;
+
+                int[] nums = Console.ReadLine().Split().Select(int.Parse).ToArray();
+
+                if (nums[0] == 1)
+                {
+                    stack.Push(nums[1]);
+                }
+
+                else if (nums[0] == 2)
+                {
+                    if (stack.Count != 0)
+                    {
+                        stack.Pop();
+                    }
+                    else
+                    {
+                        continue;
+                    }
+                }
+
+                else if (nums[0] == 3)
+                {
+                    if (stack.Count != 0)
+                    {
+                        max = stack.ToList().Max();
+                        Console.WriteLine(max);
+                    }
+                    else
+                    {
+                        continue;
+                    }
+
+                }
+
+                else if (nums[0] == 4)
+                {
+                    if (stack.Count != 0)
+                    {
+                        min = stack.ToList().Min();
+                        Console.WriteLine(min);
+                    }
+                    else
+                    {
+                        continue;
+                    }
+                }
+
+            }
+
+            int cnt = stack.Count;
+            foreach (var num in stack)
+            {
+                Console.Write(num);
+                cnt--;
+                if (cnt > 0)
+                {
+                    Console.Write(", ");
+                }
+            }
+            Console.WriteLine();
+        }
+    }
+}
