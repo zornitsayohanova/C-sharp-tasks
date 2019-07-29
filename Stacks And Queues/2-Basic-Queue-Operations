@@ -1,0 +1,55 @@
+using System;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Collections.Generic;
+using System.Collections;
+namespace ConsoleApp7
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            
+            var queue = new Queue<int>();
+            int[] input = Console.ReadLine().Split().Select(int.Parse).ToArray();
+            int[] numbers = Console.ReadLine().Split().Select(int.Parse).ToArray();
+
+            int numToEnqueue = input[0];
+            int numToDequeue = input[1];
+            int numToSearch = input[2];
+
+            for (int i = 0; i < numToEnqueue; i++)
+            {
+                int current = numbers[i];
+                queue.Enqueue(current);
+            }
+
+            for (int i = 0; i < numToDequeue; i++)
+            {
+                queue.Dequeue();
+            }
+
+            if (queue.Count == 0)
+            {
+                Console.WriteLine('0');
+            }
+
+            else if (queue.Contains(numToSearch))
+            {
+                Console.WriteLine("true");
+            }
+
+            else
+            {
+                int min = numbers[numbers.Length - 1];
+                for (int i = 0; i < numbers.Length - numToDequeue; i++)
+                {
+                    int current = numbers[i];
+                    if (current < min)
+                        min = current;
+                }
+                Console.WriteLine(min);
+            }
+        }
+    }
+}
