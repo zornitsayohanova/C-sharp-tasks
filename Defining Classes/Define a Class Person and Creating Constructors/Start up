@@ -1,0 +1,23 @@
+using System;
+
+namespace DefiningClasses
+{
+    public class StartUp
+    {
+        static void Main(string[] args)
+        {
+            int familyCount = int.Parse(Console.ReadLine());
+            Family family = new Family();
+            while (familyCount > 0)
+            {
+                string[] person = Console.ReadLine().Split(' ');
+                Person member = new Person(person[0], int.Parse(person[1]));
+                family.AddMember(member);
+                
+                familyCount--;
+            }
+            
+            family.Print();
+        }
+    }
+}
