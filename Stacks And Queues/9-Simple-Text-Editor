@@ -1,0 +1,52 @@
+using System;
+using System.Collections.Generic;
+
+namespace ConsoleApp7
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int n = int.Parse(Console.ReadLine());
+
+            Stack <string> copy = new Stack<string>();
+            string str = string.Empty;
+
+            while (n != 0)
+            {
+                string[] command = Console.ReadLine()
+                                   .Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+     
+                switch (command[0])
+                {
+                    case "1":
+                        copy.Push(str);
+                        str += command[1];
+                        break;
+                   
+
+                    case "2":
+                        copy.Push(str);
+                        str = st.Substring(0, st.Length - Convert.ToInt32(command[1]));
+
+                        break;
+
+                    case "3":
+
+                        Console.WriteLine(str[Convert.ToInt32(command[1]) - 1]);
+                        break;
+                        
+                    case "4":
+
+                        str = copy.Pop();
+                        
+                        break;
+
+                }
+                n--;
+            }
+            
+        }
+     
+    }
+}
