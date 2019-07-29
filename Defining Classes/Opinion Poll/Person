@@ -1,0 +1,61 @@
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Linq;
+
+namespace DefiningClasses
+{
+    public class Person
+    {
+
+        private string name;
+        private int age;
+        public static List<Person> People;
+
+        public virtual string Name
+        {
+            get { return this.name; }
+            set
+            {
+                if (value.Length < 3)
+                {
+                    throw new ArgumentException("Name's length should not be less than 3 symbols!");
+                }
+                this.name = value;
+            }
+        }
+
+        public virtual int Age
+        {
+            get { return this.age; }
+            set
+            {
+                if (value < 0)
+                {
+                    throw new ArgumentException("Age must be positive!");
+                }
+                this.age = value;
+            }
+        }
+
+
+        public Person(string name, int age)
+        {
+            this.Name = name;
+            this.Age = age;
+            People = new List<Person>();
+        }
+
+        virtual public void SortAge()
+        {
+            var orderedByName = People.OrderBy(x => x.Name).ToList();
+            foreach (var person in orderedByName)
+            {
+                if (person.Age > 30)
+                {
+                    Console.WriteLine("{0} - {1}", person.Name, person.Age);
+                }
+            }
+        }
+    }
+}
