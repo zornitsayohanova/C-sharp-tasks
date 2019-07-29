@@ -1,0 +1,59 @@
+using System;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Collections.Generic;
+using System.Collections;
+namespace ConsoleApp7
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            var vehicles = new Queue<string>(Console.ReadLine().Split(' '));
+            var history = new Stack<string>();
+
+            while (true)
+            {
+                string[] models = Console.ReadLine().Split('-').ToArray();
+
+                if (models[0] == "End")
+                    break;
+
+                if (models[0] == "Service" && vehicles.Count() != 0)
+                {
+                    history.Push(vehicles.Peek());
+                    Console.WriteLine("Vehicle {0} got served.", vehicles.Dequeue());
+                }
+                else if (models[0] == "CarInfo")
+                {
+                    if (vehicles.Contains(models[1]))
+                    {
+                        Console.WriteLine("Still waiting for service.");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Served.");
+                    }
+                }
+                else if (models[0] == "History")
+                {
+
+                    Console.Write(string.Join(", ", history));
+                    Console.WriteLine();
+                 
+                }
+            }
+            
+            if(vehicles.Count != 0)
+            {
+                Console.Write("Vehicles for service: ");
+                Console.Write(string.Join(", ", vehicles));
+                Console.WriteLine();
+            }
+           
+            Console.Write("Served vehicles: ");
+            Console.Write(string.Join(", ", history));
+            Console.WriteLine();
+        }
+    }
+}
