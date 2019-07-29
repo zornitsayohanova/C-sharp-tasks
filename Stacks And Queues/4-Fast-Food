@@ -1,0 +1,49 @@
+using System;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Collections.Generic;
+using System.Collections;
+namespace ConsoleApp7
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int quantity = int.Parse(Console.ReadLine());
+
+            var orders = new Queue<int>(Console.ReadLine()
+                                       .Split(' ')
+                                       .Select(int.Parse));
+
+            Console.WriteLine(orders.ToList().Max());
+
+            int order = 0;
+            int initial = orders.Count();
+            while(initial != 0)
+            {
+                order = orders.Peek();
+                if (quantity >= order)
+                {
+                    quantity -= order;
+                    orders.Dequeue();
+                }
+                initial--;
+            }
+
+            if (orders.Count == 0)
+            {
+                Console.WriteLine("Orders complete");
+            }
+            else
+            {
+                Console.Write("Orders left: ");
+                foreach (var item in orders)
+                {
+                    Console.Write(item + " ");
+                }
+            }
+            Console.WriteLine();
+        }
+    }
+}
+
