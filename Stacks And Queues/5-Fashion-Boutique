@@ -1,0 +1,35 @@
+using System;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Collections.Generic;
+using System.Collections;
+namespace ConsoleApp7
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            var clothes = new Stack<int>(Console.ReadLine().Split(' ').Select(int.Parse));
+
+            int rackCapacity = int.Parse(Console.ReadLine());
+
+            int rack = 1, sumClothes = 0;
+
+            while (clothes.Count > 0)
+            {
+
+                if (sumClothes + clothes.Peek() <= rackCapacity)
+                {
+                    sumClothes += clothes.Pop();
+                }
+                else
+                {
+                    sumClothes = 0;
+                    rack++;
+                }
+            }
+
+            Console.WriteLine(rack);
+        } 
+    }
+}
