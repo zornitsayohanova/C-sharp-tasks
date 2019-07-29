@@ -1,0 +1,74 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+namespace ConsoleApp7
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int[] sizes = Console.ReadLine().Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
+                .Select(int.Parse).ToArray();
+            string[] input = Console.ReadLine().Split();
+
+            int[,] matrix = new int[sizes[0], sizes[1]];
+
+            int bombedRow = Convert.ToInt32(input[0]);
+            int bombedCol = Convert.ToInt32(input[1]);
+            int radius = Convert.ToInt32(input[2]);
+           
+            for (int h = 0; h <= matrix.GetLength(0) - 1; h++)
+            {
+                for (int m = 0; m <= matrix.GetLength(1) - 1; m++)
+                {
+                    double distance = Math.Sqrt(Math.Pow(bombedRow - h, 2) + Math.Pow(bombedCol - m, 2));
+                    if (distance <= radius)
+                    {
+                        matrix[h, m] = 1;
+                    }
+                }
+            }
+     
+            int col = bombedCol - radius;
+            int counterOfOnes = 0;
+            int row = 0;
+
+            while (col <= matrix.GetLength(1) - 1)
+            {
+                // Console.WriteLine(counter);
+                while (row <= matrix.GetLength(0) - 1)
+                {
+                    if (matrix[row, col] == 1)
+                    {
+                        counterOfOnes++;
+                    }
+                    row++;
+                }
+                row = 0;
+                while (counterOfOnes != 0 && row <= matrix.GetLength(0) - 1)
+                {
+                    matrix[row, col] = 1;
+                    counterOfOnes--;
+                    row++;
+                }
+
+                while (row <= matrix.GetLength(0) - 1)
+                {
+                    matrix[row, col] = 0;
+                    row++;
+                }
+                col++;
+                row = 0;
+
+            }
+            for (int i = 0; i <= matrix.GetLength(0) - 1; i++)
+            {
+                for (int j = 0; j <= matrix.GetLength(1) - 1; j++)
+                {
+                    Console.Write(matrix[i, j]);
+                }
+                Console.WriteLine();
+            }
+        }
+    }
+}
