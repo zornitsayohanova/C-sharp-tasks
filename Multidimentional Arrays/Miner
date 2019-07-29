@@ -1,0 +1,145 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+namespace ConsoleApp7
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int size = int.Parse(Console.ReadLine());
+            
+            char[,] matrix = new char[size, size];
+
+            string[] commands = Console.ReadLine().Split(" ").ToArray();
+
+            int cnt = 0, row = 0, col = 0, k = 0, sum = 0, alive = 0;
+            for (int h = 0; h < matrix.GetLength(0); h++)
+            {
+                cnt = 0;
+                char [] line = Console.ReadLine().Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
+                                                .Select(char.Parse).ToArray();
+
+                for (int m = 0; m < matrix.GetLength(1); m++)
+                {
+                    matrix[h, m] = line[cnt];
+                    cnt++;
+                }
+            }
+            int count = 0, saveRow = 0, saveCol = 0, left = 0;
+            for (int f = 0; f < matrix.GetLength(0); f++)
+            {
+                for (int s = 0; s < matrix.GetLength(1); s++)
+                {
+                   if(matrix[f,s] == 's')
+                    {
+                        for (int d = 0; d < commands.Length; d++)
+                        {
+                            
+                            if (commands[d] == "right")
+                            {
+                                if (s + 1 < matrix.GetLength(1))
+                                {
+                                    s++;
+
+                                    if (matrix[f, s] == 'c')
+                                    {
+                                        count++;
+                                        matrix[f, s] = '*';
+                                    }
+                                    else if (matrix[f, s] == 'e')
+                                    {
+                                        Console.WriteLine("Game over! ({0}, {1})", f, s);
+                                        return;
+                                    }
+                                }
+
+                            }
+                            else if (commands[d] == "left")
+                            {
+                                if (s - 1 >= 0)
+                                {
+                                    s--;
+                                    if (matrix[f, s] == 'c')
+                                    {
+                                        count++;
+                                        matrix[f, s] = '*';
+                                    }
+                                    else if (matrix[f, s] == 'e')
+                                    {
+                                        Console.WriteLine("Game over! ({0}, {1})", f, s);
+                                        return;
+                                    }
+                                }
+                            }
+                            else if(commands[d] == "up")
+                            {
+                                if (f - 1 >= 0)
+                                {
+                                    f--;
+                                    if (matrix[f, s] == 'c')
+                                    {
+                                        count++;
+                                        matrix[f, s] = '*';
+                                    }
+                                    else if (matrix[f, s] == 'e')
+                                    {
+                                        Console.WriteLine("Game over! ({0}, {1})", f, s);
+                                        return;
+                                    }
+                                }
+                            }
+                            else if(commands[d] == "down")
+                            {
+                                if (f + 1 < matrix.GetLength(0))
+                                {
+                                    f++;
+                                    if (matrix[f, s] == 'c')
+                                    {
+                                        count++;
+                                        matrix[f, s] = '*';
+                                    }
+                                    else if (matrix[f, s] == 'e')
+                                    {
+                                        Console.WriteLine("Game over! ({0}, {1})", f, s);
+                                        return;
+                                    }
+                                }
+                            }
+                            if(d == commands.Length - 1)
+                            {
+                                saveRow = f;
+                                saveCol = s;
+                            }
+                        }
+
+                        
+                    }
+                }
+                
+            }
+            for (int i = 0; i < matrix.GetLength(0); i++)
+            {
+                for (int p = 0; p < matrix.GetLength(1); p++)
+                {
+                    if (matrix[i, p] == 'c')
+                    {
+                        left++;
+                    }
+                }
+
+            }
+            if (left > 0)
+            {
+                Console.WriteLine("{0} coals left. ({1}, {2})", left, saveRow, saveCol);
+            }
+            else
+            {
+                Console.WriteLine("You collected all coals! ({0}, {1})", saveRow, saveCol);
+            }
+
+         
+        }
+        
+    }
+}
