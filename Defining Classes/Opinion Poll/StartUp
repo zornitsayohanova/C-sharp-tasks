@@ -1,0 +1,24 @@
+using System;
+
+namespace DefiningClasses
+{
+    public class StartUp
+    {
+        static void Main(string[] args)
+        {
+            int personsCount = int.Parse(Console.ReadLine());
+          
+            Person person = new Person();
+            while (personsCount > 0)
+            {
+                string[] personInfo = Console.ReadLine().Split(' ');
+                Person person = new Person(personInfo[0], int.Parse(personInfo[1]));
+                person.AddPerson();
+         
+                personsCount--;
+            }
+
+            person.SortAge();
+        }
+    }
+}
