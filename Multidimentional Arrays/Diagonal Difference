@@ -1,0 +1,41 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+namespace ConsoleApp7
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int size = int.Parse(Console.ReadLine());
+            int sumDiagonals = 0, sumFirstDiagonal = 0, sumSecondDiagonal = 0;
+
+            int[,] matrix = new int[size, size];
+            for (int i = 0; i < matrix.GetLength(0); i++)
+            {
+                var line = Console.ReadLine().Split(' ').Select(int.Parse).ToArray();
+                for (int j = 0; j < matrix.GetLength(1); j++)
+                {
+                    matrix[i, j] = line[j];
+                }
+            }
+
+            int k = 0;  
+
+            for (int i = 0; i < matrix.GetLength(0); i++)
+            {
+                k = i;
+                sumFirstDiagonal += matrix[i, k];
+            }
+
+            k = matrix.GetLength(1) - 1;
+            for (int i = 0; i < matrix.GetLength(0) ; i++)
+            {
+                sumSecondDiagonal += matrix[i, k];
+                k--;
+            }
+            sumDiagonals = Math.Abs(sumFirstDiagonal - sumSecondDiagonal);
+            Console.WriteLine(sumDiagonals);
+        }
+    }
+}
