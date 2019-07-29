@@ -1,0 +1,87 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+namespace ConsoleApp7
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int size = int.Parse(Console.ReadLine());
+            
+            int[,] matrix = new int[size, size];
+
+            int cnt = 0, row = 0, col = 0, k = 0, sum = 0, alive = 0;
+            for (int h = 0; h < matrix.GetLength(0); h++)
+            {
+                cnt = 0;
+                int[] line = Console.ReadLine().Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
+                                                .Select(int.Parse).ToArray();
+
+                for (int m = 0; m < matrix.GetLength(1); m++)
+                {
+                    matrix[h, m] = line[cnt];
+                    cnt++;
+                }
+            }
+            string[] coordinates = Console.ReadLine().Split(" ").ToArray();
+
+            while (k <= coordinates.Length - 1)
+            {
+                row = (int)Char.GetNumericValue(coordinates[k][0]);
+                col = (int)Char.GetNumericValue(coordinates[k][2]);
+
+                int number = matrix[row, col];
+         
+                if (number > 0)
+                {
+                    Explode(row + 1, col, number, matrix);
+                    Explode(row + 1, col - 1, number, matrix);
+                    Explode(row + 1, col + 1, number, matrix);
+                    Explode(row - 1, col, number, matrix);
+                    Explode(row - 1, col - 1, number, matrix);
+                    Explode(row - 1, col + 1, number, matrix);
+                    Explode(row, col + 1, number, matrix);
+                    Explode(row, col - 1, number, matrix);
+                    matrix[row, col] = 0;
+                }
+                k++;
+            }
+            for (int p = 0; p < matrix.GetLength(0); p++)
+            {
+                for (int m = 0; m < matrix.GetLength(1); m++)
+                {
+                    if (matrix[p, m] > 0)
+                    {
+                        sum += matrix[p, m];
+                        alive++;
+                    }
+                }
+            }
+
+            Console.WriteLine("Alive cells: {0}", alive);
+            Console.WriteLine("Sum: {0}", sum);
+
+            for (int i = 0; i < matrix.GetLength(0); i++)
+            {
+                for (int j = 0; j < matrix.GetLength(1); j++)
+                {
+                    Console.Write(matrix[i, j] + " ");
+                }
+                Console.WriteLine();
+            }
+        }
+
+
+        public static void Explode(int row, int col, int number, int [,] matrix)
+        {
+            if(row >= 0 && row  < matrix.GetLength(0) && 
+               col >= 0 && col  < matrix.GetLength(1) && 
+               matrix[row, col] >  0)
+            {
+                matrix[row, col] -= number;
+            }
+        }
+        
+    }
+}
