@@ -1,0 +1,31 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace DefiningClasses
+{
+    public class Family 
+    {
+        List<Person> FamilyMembers;
+        private string Name { get; set; }
+        private int Age { get; set; }
+
+        public Family()
+        {
+            this.FamilyMembers = new List<Person>();
+        }
+
+        public void AddMember(Person member)
+        {
+            FamilyMembers.Add(member);
+        }
+        
+        public Person GetOldestMember()
+        {
+           Person member = FamilyMembers.Find(m => m.Age == FamilyMembers.Max(person => person.Age));
+           Console.WriteLine(member.Name + ' ' + member.Age);
+           return member;   
+        }
+    }
+}
